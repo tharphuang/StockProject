@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>股票预测</title>
+<meta charset="utf-8">
+{% load static %}
+<script src="{% static 'js/echarts.min.js' %}"></script>
+<style>
+* { margin: 0; padding: 0;}
+.menu .header { position: fixed; left: 0; top: 0; width: 100%; background-color:#323436;}
+.menu .inner { width: 1000px; margin: 0 auto; overflow: hidden; zoom: 1;}
+.menu h1 { float: left;}
+.menu h1 img { display: block; border: 0;}
+.menu .nav { float: right; list-style-type: none; font-family: "Microsoft Yahei";}
+.menu .nav li { float: left; margin-left: 5px;}
+.menu .nav a { float: left; color: #cecece; text-decoration: none;}
+.menu .nav a:hover { background-color: #555;}
+
+.menu .large .inner { padding: 20px 0;}
+.menu .large h1 img { height: 64px;}
+.menu .large .nav { padding-top: 10px;}
+.menu .large .nav a { height: 44px; padding: 0 20px; line-height: 44px; font-size: 18px;}
+
+.menu .small .inner { padding: 10px 0;}
+.menu .small h1 img { height: 34px;}
+.menu .small .nav { padding-top: 3px;}
+.menu .small .nav a { height: 28px; padding: 0 10px; line-height: 28px; font-size: 14px;}
+
+.menu .header, .menu .inner, .menu a, .menu img, .menu li { transition: all 1s; -moz-transition: all 1s; -webkit-transition: all 1s; -o-transition: all 1s;}
+
+.section {left: 0 ;margin-top:100px;height: 600px;}
+</style>
+</head>
+
+<body class="menu">
+
+    <div class="section " style="text-align: center;">
+    <script type="text/javascript">
+        var stock_data = null
+        {% if data %}
+            stock_data = {{data|safe}};
+            var recent_data = stock_data['recent_data'];
+            var stock_code = stock_data['stock_code'];
+            var predict_data = stock_data['predict_data'];
+            var indexs = null;
+            indexs = stock_data['indexs']
+        {% endif %}
+        console.log(stock_data);
+    </script>
+    <h4>-</h4>
+    <div style="position:center;margin-top: 50px">
+        <form id="commit_stock_code" action="{% url 'predict' %}" method="post">
+            {% csrf_token %}
+            <select name="stock_code" style="width: 200px; text-align: center; padding:5px;">
+                <option id="600519" value="600519">贵州茅台(600519)</option>
+                <option id="600718" value="600718">东软集团(600718)</option>
+                <option id="000651" value="000651">格力电器(000651)</option>
+                <option id="600839" value="600839">四川长虹(600839)</option>
+                <option id="600320" value="600320">振华重工(600320)</option>
+                <option id="601988" value="601988">中国银行(601988)</option>
+            </select>
+            <input type="submit" value="查询" style="padding:5px;">
+        </form>
+    </div>
+    <!-- 为ECharts准备一个具备大小（宽高）的容器 -->
+    <div style="width:100%;height:1600px;margin-top:50px;">
+        <div id="hist_futu" style="width: 100%;height:450px;">
+            <script src="{% static 'js/draw_charts.js' %}"></script>
+        </div>
+<!--
+        <div id="kline" style="width:100%;height:600px;">
+            <script src="{% static 'js/Kline.js' %}"></script>
+        </div>
+        -->
+
+    </div>
+
+
+
+</div>
+
+    <div class="header large">
+    <div class="inner">
+    <h1><img src="{% static 'img/logo.png'%}" alt="logo"></h1>
+    <ul class="nav">
+        <li><a class="cur" href="http://127.0.0.1:8000/index/" title="股票预测">股票预测</a></li>
+        <li><a href="http://127.0.0.1:8000/market/" title="股票行情">股票行情</a></li>
+        <li><a href="http://127.0.0.1:8000/strategy/" title="策略分析">策略分析</a></li>
+        <li><a href="http://127.0.0.1:8000/about/" title="关于我们">关于我们</a></li>
+    </ul>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<script>
+$(function(){
+	$(window).on('scroll', function(){
+		if($(window).scrollTop() > 100){
+			$('.header').removeClass('large').addClass('small');
+		} else {
+			$('.header').removeClass('small').addClass('large');
+		}
+	});
+});
+</script>
+</body>
+</html>

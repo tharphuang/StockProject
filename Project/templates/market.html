@@ -1,0 +1,175 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/market.css' %}"/>
+
+    <style>
+* { margin: 0; padding: 0;}
+.page .header { position: fixed; left: 0; top: 0; width: 100%; background-color:#323436;}
+.page .inner { width: 1000px; margin: 0 auto; overflow: hidden; zoom: 1;}
+.page h1 { float: left;}
+.page h1 img { display: block; border: 0;}
+.page .nav { float: right; list-style-type: none; font-family: "Microsoft Yahei";}
+.page .nav li { float: left; margin-left: 5px;}
+.page .nav a { float: left; color: #cecece; text-decoration: none;}
+.page .nav a:hover { background-color: #555;}
+
+.page .large .inner { padding: 20px 0;}
+.page .large h1 img { height: 64px;}
+.page .large .nav { padding-top: 10px;}
+.page .large .nav a { height: 44px; padding: 0 20px; line-height: 44px; font-size: 18px;}
+
+.page .small .inner { padding: 10px 0;}
+.page .small h1 img { height: 34px;}
+.page .small .nav { padding-top: 3px;}
+.page .small .nav a { height: 28px; padding: 0 10px; line-height: 28px; font-size: 14px;}
+
+.page .header, .page .inner, .page a, .page img, .page li { transition: all 1s; -moz-transition: all 1s; -webkit-transition: all 1s; -o-transition: all 1s;}
+.page .section {left: 0 ;margin-top:100px;height: 1000px;}
+</style>
+
+</head>
+
+<title>股市行情</title>
+
+<body>
+
+<div class="page">
+
+
+
+    <div class="section " style="text-align: center;">
+
+        <div class="banner">
+        <div class="ui stackable four column grid">
+            <div class="column">
+                <div class="ui inverted segment">
+                    <div class="">股价排行榜</div>
+                    <div class="ui inverted relaxed divided list">
+                        {% for item in items.price_list %}
+                        <div class="item">
+                            <div>
+                                <span class="banner-item-name">{{item.0}}</span>
+                                {%  if item.3 > 0 %}
+                                <span class="fr red"> {{item.1}}</span>
+                                {%  else %}
+                                <span class="fr green">{{item.1}}</span>
+                                {%  endif %}
+                            </div>
+                        </div>
+                        {%  endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui inverted segment">
+                    <div class="">涨幅排行榜</div>
+                    <div class="ui inverted relaxed divided list">
+                        {% for item in items.range_list %}
+                        <div class="item">
+                            <div>
+                                <span class="banner-item-name">{{item.0}}</span>
+                                <span class="fr red">{{item.3}}%</span></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui inverted segment">
+                    <div class="">跌幅排行榜</div>
+                    <div class="ui inverted relaxed divided list">
+                        {% for item in items.range_r_list%}
+                        <div class="item">
+                            <div>
+                                <span class="banner-item-name">{{item.0}}</span>
+                                <span class="fr green">{{item.3}}%</span></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui inverted segment">
+                    <div class="">成交量排行榜</div>
+                    <div class="ui inverted relaxed divided list">
+                        {% for item in items.volume_list %}
+                        <div class="item">
+                            <div>
+                                <span class="banner-item-name">{{item.0}}</span>
+                                {% if item.3 > 0 %}
+                                <span class="fr red">{{item.4}}手</span>
+                                {% else %}
+                                <span class="fr green">{{item.4}}手</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="content">
+        <ul class="stock-list">
+            {% for item in items.stock_list %}
+            <li id="{{item.6}}" onmouseover="mouseOver({{item.6}})" data-inverted="" data-tooltip="当前价: {{item.1}}  涨跌幅: {{item.3}}%" data-position="top center" data-variation="large" >
+                <div class="stock-name">
+                    {{item.0}}
+                </div>
+                {% if item.3 > 0 %}
+                <div class="stock-price red">{{item.1}}</div>
+                {% else %}
+                <div class="stock-price green">{{item.1}}</div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    </div>
+
+    <div class="header large">
+        <div class="inner">
+            <h1><img src="{% static 'img/logo.png'%}" alt="logo"></h1>
+            <ul class="nav">
+                <li><a class="cur" href="http://127.0.0.1:8000/index/" title="股票预测">股票预测</a></li>
+                <li><a href="http://127.0.0.1:8000/market/" title="股票行情">股票行情</a></li>
+                <li><a href="http://127.0.0.1:8000/strategy/" title="策略分析">策略分析</a></li>
+                <li><a href="http://127.0.0.1:8000/about/" title="关于我们">关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+    function mouseOver(id){
+        $('#'+id)
+        .popup({
+            duration:0
+        })
+        .popup('show')
+    }
+
+    // 30秒刷新
+    setTimeout(function(){
+        window.location.reload();
+    }, 30000)
+</script>
+<script>
+$(function(){
+	$(window).on('scroll', function(){
+		if($(window).scrollTop() > 100){
+			$('.header').removeClass('large').addClass('small');
+		} else {
+			$('.header').removeClass('small').addClass('large');
+		}
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>策略分析</title>
+<meta charset="utf-8">
+{% load static %}
+<script src="{% static 'js/echarts.min.js' %}"></script>
+<style>
+* { margin: 0; padding: 0;}
+.menu .header { position: fixed; left: 0; top: 0; width: 100%; background-color:#323436;}
+.menu .inner { width: 1000px; margin: 0 auto; overflow: hidden; zoom: 1;}
+.menu h1 { float: left;}
+.menu h1 img { display: block; border: 0;}
+.menu .nav { float: right; list-style-type: none; font-family: "Microsoft Yahei";}
+.menu .nav li { float: left; margin-left: 5px;}
+.menu .nav a { float: left; color: #cecece; text-decoration: none;}
+.menu .nav a:hover { background-color: #555;}
+
+.menu .large .inner { padding: 20px 0;}
+.menu .large h1 img { height: 64px;}
+.menu .large .nav { padding-top: 10px;}
+.menu .large .nav a { height: 44px; padding: 0 20px; line-height: 44px; font-size: 18px;}
+
+.menu .small .inner { padding: 10px 0;}
+.menu .small h1 img { height: 34px;}
+.menu .small .nav { padding-top: 3px;}
+.menu .small .nav a { height: 28px; padding: 0 10px; line-height: 28px; font-size: 14px;}
+
+.menu .header, .menu .inner, .menu a, .menu img, .menu li { transition: all 1s; -moz-transition: all 1s; -webkit-transition: all 1s; -o-transition: all 1s;}
+
+.section {left: 0 ;margin-top:100px;height: 600px;}
+</style>
+</head>
+
+<body class="menu">
+    <div class="section " style="text-align: center;">
+        <table  border="1"  cellspacing="0" bordcolor="#00ff99"  width="100%" height="100%">
+                <thead>
+                <tr >
+                    <td class="align-left">名称</td>
+                    <td>分类</td>
+                    <td>策略原理</td>
+                    <td>策略收益</td>
+                    <td>夏普比率</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="algorithm_list">
+                        <td class="align-left name">
+                            <a href="https://www.joinquant.com/algorithm/index/edit?algorithmId=009956dd4fd3a3ca7ffa529dfdecd62b&backtest=1" class="black file_name" target="_blank">双均线策略</a>
+                        </td>
+                    <td class="iscode f12">交易策略</td>
+                    <td>双均线策略，当五日均线位于十日均线上方则买入，反之卖出。</td>
+                        <td>106.83%</td>
+                        <td>0.69</td>
+                    </tr>
+                <tr class="algorithm_list">
+                        <td class="align-left name">
+                            <a href="https://www.joinquant.com/algorithm/index/edit?algorithmId=f3432a6416b5797a2d9048e786d94ccb&backtest=2" class="black file_name" target="_blank">均值回归策略</a>
+                        </td>
+                    <td class="iscode f12">交易策略</td>
+                    <td>股票的价格会以它的均线为中心进行波动。也就是说，当标的价格由于波动而偏离移动均线时，</br>它将调整并重新归于均线。那么如果我们如果能捕捉偏离股价的回归，就可以从此获利。</td>
+                    <td>43.48%</td>
+                    <td>0.33</td>
+                    </tr>
+                <tr class="algorithm_list">
+                        <td class="align-left name" >
+                            <a href="https://www.joinquant.com/algorithm/index/edit?algorithmId=c1d336cb1a92c986ab08254857438111&backtest=1" class="black file_name" target="_blank">小市值策略</a>
+                        </td>
+                    <td class="iscode f12">选股交易策略</td>
+                    <td css=" word-wrap: break-word;">筛选出市值介于20-30亿的股票，选取其中市值最小的三只股票，<br/>
+                        每天开盘买入，持有五个交易日，然后调仓。</td>
+                        <td>358.62%</td>
+                        <td>1.50</td>
+                    </tr>
+                <tr class="algorithm_list">
+                        <td class="align-left name">
+                            <a href="https://www.joinquant.com/algorithm/index/edit?algorithmId=2d81544b460f62533312fb9be1a81297&backtest=0" class="black file_name" target="_blank">低估价值选股策略</a>
+                        </td>
+                    <td class="iscode f12">选股交易策略</td>
+                    <td>市净率小于2，负债比例高于市场平均值，企业的流动资产至少是流动负债的1.2倍;</br> 每年四次调仓，即在1/4/7/10月调仓，可加入止损(十天HS300跌幅达10%清仓)；</td>
+                        <td>93.61%</td>
+                        <td>0.46</td>
+                    </tr>
+                </tbody>
+            </table>
+
+    </div>
+
+    <div class="header large">
+    <div class="inner">
+    <h1><img src="{% static 'img/logo.png'%}" alt="logo"></h1>
+    <ul class="nav">
+        <li><a class="cur" href="http://127.0.0.1:8000/index/" title="股票预测">股票预测</a></li>
+        <li><a href="http://127.0.0.1:8000/market/" title="股票行情">股票行情</a></li>
+        <li><a href="http://127.0.0.1:8000/strategy/" title="策略分析">策略分析</a></li>
+        <li><a href="http://127.0.0.1:8000/about/" title="关于我们">关于我们</a></li>
+    </ul>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<script>
+$(function(){
+	$(window).on('scroll', function(){
+		if($(window).scrollTop() > 100){
+			$('.header').removeClass('large').addClass('small');
+		} else {
+			$('.header').removeClass('small').addClass('large');
+		}
+	});
+});
+</script>
+</body>
+</html>
