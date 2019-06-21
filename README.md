@@ -2,7 +2,9 @@
 
 **股票价格预测**
 
-以下是关于项目股票预测实验中的一些原理及实验数据记录。主要设计实验中关于LSTM神经网络ESN网络的原理。其中LSTM又有多变量和单变量的区别因此一共有三种神经网络模型。对应的蟒蛇代码在StockPredict /的getData下。
+以下是关于项目股票预测实验中的一些原理及实验数据记录。主要设计实验中关于LSTM神经网络ESN网络的原理。其中LSTM又有多变量和单变量的区别因此一共有三种神经网络模型。对应的蟒蛇代码在StockPredict /的GetData下。
+
+文章中的联系方式应为：81364132 @qq.com
 
 
 ![1](https://github.com/Tharphuang/StockProject/blob/master/readmepng/0001.jpg)
