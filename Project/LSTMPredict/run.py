@@ -5,11 +5,11 @@ import numpy as np
 import math
 import pandas as pd
 import matplotlib.pyplot as plt
-from LSTMPredict.core.data_processor import DataLoader
-from LSTMPredict.core.model import Model
+from .core.data_processor import DataLoader
+from .core.model import Model
 from datetime import datetime,timedelta
-from LSTMPredict.core.get_domestic_hist_stock import get_all_last_data
-from LSTMPredict.core.get_domestic_hist_stock import get_single_last_data
+from .core.get_domestic_hist_stock import get_all_last_data
+from .core.get_domestic_hist_stock import get_single_last_data
 
 
 def plot_results(predicted_data, true_data):  # predicted_data与true_data：同长度一维数组

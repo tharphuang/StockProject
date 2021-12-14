@@ -3,7 +3,7 @@ import math
 import numpy as np
 import datetime as dt
 from numpy import newaxis
-from LSTMPredict.core.utils import Timer
+from .utils import Timer
 from keras.layers import Dense, Activation, Dropout, LSTM
 from keras.models import Sequential, load_model
 from keras.callbacks import EarlyStopping, ModelCheckpoint
@@ -55,7 +55,7 @@ class Model():
 		timer.start()
 		print('[Model] Training Started')
 		print('[Model] %s epochs, %s batch size' % (epochs, batch_size))
-		
+
 		save_fname = os.path.join(save_dir, '%s-e%s.h5' % (dt.datetime.now().strftime('%d%m%Y-%H%M%S'), str(epochs)))
 		callbacks = [
 			EarlyStopping(monitor='val_loss', patience=2),
@@ -81,7 +81,7 @@ class Model():
 		timer.start()
 		print('[Model] Training Started')
 		print('[Model] %s epochs, %s batch size, %s batches per epoch' % (epochs, batch_size, steps_per_epoch))
-		
+
 		# save_fname = os.path.join(save_dir, '%s-e%s.h5' % (dt.datetime.now().strftime('%d%m%Y-%H%M%S'), str(epochs)))
 		save_fname = os.path.join(save_dir, save_name+'.h5')
 		callbacks = [
@@ -94,7 +94,7 @@ class Model():
 			callbacks=callbacks,
 			workers=1
 		)
-		
+
 		print('[Model] Training Completed. Model saved as %s' % save_fname)
 		timer.stop()
 

@@ -1,7 +1,7 @@
-"""Project URL Configuration
+"""stock URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.1/topics/http/urls/
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,13 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ..StockPro import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.index, name='index'),  # new
-    path('predict/', views.predict_stock_action, name='predict'),
-    path('about/', views.about, name='about'),
-    path('market/', views.market, name='market'),
-    path('strategy/', views.strategy, name='strategy'),
 ]

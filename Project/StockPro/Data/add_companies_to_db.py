@@ -1,4 +1,4 @@
-from StockPro import models
+from .. import models
 
 def add_company():
     companies = {"600718":"东软集团","000651":"格力电器","600839":"四川长虹","600320":"振华重工","601988":"中国银行",
