@@ -5,7 +5,7 @@ import pymysql
 if __name__ == '__main__':
 
     # 设置tushare pro的token并获取连接
-    ts.set_token('b6fd53e9955f0cbb04d0ffb3610db2e09c645fea62044a8893f89090')
+    ts.set_token('******')
     pro = ts.pro_api()
     # 设定获取日线行情的初始日期和终止日期，其中终止日期设定为昨天。
     start_dt = '20100101'
